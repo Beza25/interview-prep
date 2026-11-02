@@ -1,6 +1,3 @@
-from collections import defaultdict
-
-
 def two_sum(nums, target):
     # Return indices of the two numbers that add up to target in sorted array
     left, right = 0, len(nums) - 1
@@ -32,7 +29,7 @@ def three_sum(nums):
 
     nums.sort()
 
-    if nums[len(nums) - 1] < 0:
+    if len(nums) < 3 or nums[-1] < 0:
         return []
 
     result = []
@@ -54,7 +51,7 @@ def three_sum(nums):
                 while left < right and nums[left] == nums[left + 1]:
                     left += 1
                 while left < right and nums[right] == nums[right - 1]:
-                    right += 1
+                    right -= 1
                 left += 1
                 right -= 1
 

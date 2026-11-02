@@ -13,6 +13,7 @@ dependencies = [
 
 [tool.pytest.ini_options]
 testpaths = ["algorithms", "python"]
+pythonpath = ["."]
 
 [project.scripts]
 interview-prep = "interview_prep:main"

@@ -1,5 +1,5 @@
 import pytest
-from twosum import three_sum, two_sum
+from algorithms.two_pointer_algo import three_sum, two_sum
 
 NOT_FOUND = (0, 0)
 
