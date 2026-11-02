@@ -1,4 +1,5 @@
 import pytest
+
 from algorithms.two_pointer_algo import three_sum, two_sum
 
 NOT_FOUND = (0, 0)
@@ -31,7 +32,33 @@ def test_two_sum_not_found(nums, target):
     assert two_sum(nums, target) == NOT_FOUND
 
 
-def test_three_sum():
-    input = [-1, 0, 1, 2, -1, -1]
-    expected = [[-1, -1, 2], [-1, 0, 1]]
-    assert three_sum(input) == expected
+@pytest.mark.parametrize(
+    "nums, expected",
+    [
+        ([-1, 0, 1, 2, -1, -1], [[-1, -1, 2], [-1, 0, 1]]),  # typical case
+        ([-1, 0, 1], [[-1, 0, 1]]),  # exactly three numbers
+        ([3, -2, 1, 0, -1], [[-2, -1, 3], [-1, 0, 1]]),  # unsorted input
+        ([0, 0, 0, 0], [[0, 0, 0]]),  # all zeros, one unique triplet
+        ([-2, 0, 0, 2, 2], [[-2, 0, 2]]),  # duplicates on both sides
+        (
+            [-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6],
+            [[-4, -2, 6], [-4, 0, 4], [-4, 1, 3], [-4, 2, 2], [-2, -2, 4], [-2, 0, 2]],
+        ),  # many triplets with heavy duplication
+    ],
+)
+def test_three_sum_found(nums, expected):
+    assert three_sum(nums) == expected
+
+
+@pytest.mark.parametrize(
+    "nums",
+    [
+        [],  # empty list
+        [0, 0],  # fewer than three numbers
+        [1, 2, 3],  # all positive
+        [-3, -2, -1],  # all negative
+        [-1, 0, 2],  # three numbers that don't sum to zero
+    ],
+)
+def test_three_sum_not_found(nums):
+    assert three_sum(nums) == []
