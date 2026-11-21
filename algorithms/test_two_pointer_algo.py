@@ -1,6 +1,6 @@
 import pytest
 
-from algorithms.two_pointer_algo import three_sum, two_sum
+from algorithms.two_pointer_algo import three_sum, two_sum, triangleNumber
 
 NOT_FOUND = (0, 0)
 
@@ -62,3 +62,23 @@ def test_three_sum_found(nums, expected):
 )
 def test_three_sum_not_found(nums):
     assert three_sum(nums) == []
+
+
+@pytest.mark.parametrize(
+    "nums, expected",
+    [
+        ([11, 4, 9, 6, 15, 18], 10),  # typical case
+        ([11, 15, 18], 1),  # exactly three numbers
+        ([11, 11, 4, 9, 6, 15, 18, 18], 35),  # duplicates count as separate sides
+        ([2, 2, 2, 2], 4),  # all equal: every triplet works (4 choose 3)
+        ([4, 2, 3, 2], 3),  # unsorted input with a duplicate
+        ([], 0),  # empty list
+        ([3, 4], 0),  # fewer than three sides
+        ([1, 2, 3], 0),  # degenerate: 1 + 2 == 3 is not a triangle
+        ([1, 1, 10], 0),  # one side too long
+        ([0, 0, 0], 0),  # zero-length sides
+        ([0, 1, 1], 0),  # a zero side makes it degenerate
+    ],
+)
+def test_triangle_number(nums, expected):
+    assert triangleNumber(nums) == expected

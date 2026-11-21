@@ -56,3 +56,41 @@ def three_sum(nums):
                 right -= 1
 
     return result
+
+
+"""
+    Write a function to count the number of triplets in an array nums of non-negative 
+    integers that could form the sides of a triangle.
+
+    For three sides to form a valid triangle, all three of these conditions must hold: 
+    (a + b > c), (a + c > b), and (b + c > a), where (a), (b), 
+    and (c) are the side lengths. In other words, the sum of every possible pair must exceed the third side
+
+    Input: nums = [11,4,9,6,15,18]
+    Output: 10
+
+"""
+
+
+def triangleNumber(nums):
+    # Sort a copy so the caller's list isn't mutated
+    nums = sorted(nums)
+    counter = 0
+
+    # Zero-length sides can never form a triangle, so skip them
+    start = 0
+    while start < len(nums) and nums[start] <= 0:
+        start += 1
+
+    for i in range(len(nums) - 1, start + 1, -1):
+        left, right = start, i - 1
+        while left < right:
+            check_sum = nums[left] + nums[right]
+
+            if check_sum > nums[i]:
+                counter += right - left
+                right -= 1
+            else:
+                left += 1
+
+    return counter
